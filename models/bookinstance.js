@@ -15,8 +15,14 @@ BookInstanceSchema.virtual('url').get(function () {
     return `/catalog/bookinstance/${this._id}`;
 });
 
+// For string representation of dates in paragraphs
 BookInstanceSchema.virtual('due_back_formatted').get(function () {
     return DateTime.fromJSDate(this.due_back).toLocaleString(DateTime.DATE_MED);
 });
+
+// For date formatting in forms
+BookInstanceSchema.virtual('formatted_due_back').get(function() {
+    return this.due_back.toJSON().slice(0, 10);
+})
 
 module.exports = mongoose.model('BookInstance', BookInstanceSchema);
